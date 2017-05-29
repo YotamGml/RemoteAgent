@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="Console">
+            <PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss.SSS} [%t] (%c{5}) [%p] %msg%n"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/remoteAgent.log" filePattern="logs/devreg.log-%d{yyyy-MM-dd}-%i.log" >
+            <PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss.SSS} [%t] (%c{5}) [%p] %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="4"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
