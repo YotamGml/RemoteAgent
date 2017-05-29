@@ -1,0 +1,27 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+
+// Define the src and resource folder
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+// Define the default Gradle version
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4.1'
+}
