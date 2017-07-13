@@ -7,10 +7,7 @@ package ssh;
 import com.jcraft.jsch.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.concurrent.TimeoutException;
 
 public class SSHClient {
@@ -40,16 +37,18 @@ public class SSHClient {
      * Print output stream to console
      */
     public void printOutputStream(boolean flag) {
-        printErrStream = flag ;
+        printOutputStream = flag ;
     }
+
 
     /**
      * @param flag
      * Print error stream to console
      */
     public void printErrorStream(boolean flag) {
-        printOutputStream = flag ;
+        printErrStream = flag ;
     }
+
 
     /**
      * @param time
@@ -59,9 +58,22 @@ public class SSHClient {
         commandTimeout = time;
     }
 
+
+    /**
+     * @return exit status of the remote shell execution, 0 - operation success
+     */
     public int getExitStatus() {
         return exitStatus;
     }
+
+
+    /**
+     * @return All console output
+     */
+    public String getConsoleOutput() {
+        return output.toString();
+    }
+
 
     public void sendCommand(String command) throws Exception {
 
@@ -108,22 +120,16 @@ public class SSHClient {
         // close also the inputStream object
         channel.disconnect();
         if (exitStatus == EXIT_TIMEOUT_CODE) {
-            String msg = "(code "+exitStatus+") Command Stopped - The execution time reached to its timeout ("+ commandTimeout +")";
+            String msg = "Command Stopped - The execution time reached to its timeout ("+ commandTimeout +")";
             throw new TimeoutException(msg);
         }
     }
-
-
-    public void sendCommand(String workingFolder, String command) throws Exception {
-        sendCommand("cd " + workingFolder +" && "+ command);
-    }
-
-
 
     public static void main (String[] args){
 
         String command1="zip --help";
         String command2="cmd.exe /c dir";
+        // sendCommand("cd " + workingFolder +" && "+ command);
 
 
     }

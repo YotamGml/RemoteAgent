@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * Created by YotamG on 26/06/2017.
  */
-public class RemoteSession {
+public final class RemoteSession {
 
     private static final Logger log = LogManager.getLogger();
     private static final int SESSION_TIMEOUT = 5000;
